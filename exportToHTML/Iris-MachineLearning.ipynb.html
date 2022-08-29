@@ -1,0 +1,77 @@
+<html>
+<head>
+<title>Iris-MachineLearning.ipynb</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #5c6370; font-style: italic;}
+.s1 { color: #d55fde; font-style: italic;}
+.s2 { color: #bbbbbb;}
+.s3 { color: #89ca78;}
+.s4 { color: #2bbac5;}
+.s5 { color: #d19a66;}
+</style>
+</head>
+<body bgcolor="#282c34">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Iris-MachineLearning.ipynb</font>
+</center></td></tr></table>
+<pre><span class="s0">#%% 
+</span><span class="s1">from </span><span class="s2">sklearn.datasets </span><span class="s1">import </span><span class="s2">load_iris</span>
+<span class="s2">iris_dataset = load_iris()</span>
+<span class="s0">#%% 
+</span><span class="s1">import </span><span class="s2">pandas </span><span class="s1">as </span><span class="s2">pd</span>
+<span class="s0">#%% 
+</span><span class="s1">import </span><span class="s2">numpy </span><span class="s1">as </span><span class="s2">np</span>
+<span class="s0">#%% 
+</span><span class="s1">import </span><span class="s2">mglearn</span>
+<span class="s0">#%% 
+</span><span class="s2">iris_dataset</span>
+<span class="s0">#%% 
+</span><span class="s2">print(</span><span class="s3">f&quot;Keys of iris_dataset: </span><span class="s4">\n{</span><span class="s2">iris_dataset.keys()</span><span class="s4">}</span><span class="s3">&quot;</span><span class="s2">)</span>
+<span class="s0">#%% 
+</span><span class="s2">print(</span><span class="s3">f&quot;Target names: </span><span class="s4">{</span><span class="s2">iris_dataset[</span><span class="s3">'target_names'</span><span class="s2">]</span><span class="s4">}</span><span class="s3">&quot;</span><span class="s2">)</span>
+<span class="s0">#%% 
+</span><span class="s2">print(</span><span class="s3">f&quot;Feature names: </span><span class="s4">\n{</span><span class="s2">iris_dataset[</span><span class="s3">'feature_names'</span><span class="s2">]</span><span class="s4">}</span><span class="s3">&quot;</span><span class="s2">)</span>
+<span class="s0">#%% 
+</span><span class="s2">print(</span><span class="s3">f&quot;Type of data: </span><span class="s4">{</span><span class="s2">type(iris_dataset[</span><span class="s3">'data'</span><span class="s2">])</span><span class="s4">}</span><span class="s3">&quot;</span><span class="s2">)</span>
+<span class="s0">#%% 
+</span><span class="s2">print(</span><span class="s3">f&quot;Shape of data: </span><span class="s4">{</span><span class="s2">iris_dataset[</span><span class="s3">'data'</span><span class="s2">].shape</span><span class="s4">}</span><span class="s3">&quot;</span><span class="s2">)</span>
+<span class="s0">#%% 
+</span><span class="s2">print(</span><span class="s3">f&quot;Target: </span><span class="s4">\n{</span><span class="s2">iris_dataset[</span><span class="s3">'target'</span><span class="s2">]</span><span class="s4">}</span><span class="s3">&quot;</span><span class="s2">)</span>
+<span class="s0">#%% 
+</span><span class="s1">from </span><span class="s2">sklearn.model_selection </span><span class="s1">import </span><span class="s2">train_test_split</span>
+<span class="s2">X_train, X_test, y_train, y_test = train_test_split(iris_dataset[</span><span class="s3">'data'</span><span class="s2">], iris_dataset[</span><span class="s3">'target'</span><span class="s2">], random_state=</span><span class="s5">0</span><span class="s2">)</span>
+<span class="s0">#%% 
+</span><span class="s2">print(</span><span class="s3">f&quot;X_train shape: </span><span class="s4">{</span><span class="s2">X_train.shape</span><span class="s4">}</span><span class="s3">&quot;</span><span class="s2">)</span>
+<span class="s2">print(</span><span class="s3">f&quot;y_train shape: </span><span class="s4">{</span><span class="s2">y_train.shape</span><span class="s4">}</span><span class="s3">&quot;</span><span class="s2">)</span>
+<span class="s0">#%% 
+</span><span class="s2">print(</span><span class="s3">f&quot;X_test shape: </span><span class="s4">{</span><span class="s2">X_test.shape</span><span class="s4">}</span><span class="s3">&quot;</span><span class="s2">)</span>
+<span class="s2">print(</span><span class="s3">f&quot;y_test shape: </span><span class="s4">{</span><span class="s2">y_test.shape</span><span class="s4">}</span><span class="s3">&quot;</span><span class="s2">)</span>
+<span class="s0">#%% 
+# Create dataframe from data in X_train</span>
+<span class="s0"># label the columns using the strings in iris_dataset.feature_names</span>
+<span class="s2">iris_dataframe = pd.DataFrame(X_train, columns=iris_dataset.feature_names)</span>
+<span class="s0"># Create a scatter matrix from the dataframe, color by y_train</span>
+<span class="s2">grr = pd.plotting.scatter_matrix(iris_dataframe, c=y_train, figsize=(</span><span class="s5">15</span><span class="s2">, </span><span class="s5">15</span><span class="s2">), marker=</span><span class="s3">'o'</span><span class="s2">, hist_kwds={</span><span class="s3">'bins'</span><span class="s2">:</span><span class="s5">20</span><span class="s2">}, s=</span><span class="s5">60</span><span class="s2">, alpha=</span><span class="s5">.8</span><span class="s2">, cmap=mglearn.cm3)</span>
+<span class="s0">#%% 
+</span><span class="s1">from </span><span class="s2">sklearn.neighbors </span><span class="s1">import </span><span class="s2">KNeighborsClassifier</span>
+<span class="s2">knn = KNeighborsClassifier(n_neighbors=</span><span class="s5">1</span><span class="s2">)</span>
+<span class="s0">#%% 
+</span><span class="s2">knn.fit(X_train, y_train)</span>
+<span class="s0">#%% md 
+</span><span class="s2">## Making predictions 
+</span><span class="s0">#%% 
+</span><span class="s2">X_new = np.array([[</span><span class="s5">5</span><span class="s2">, </span><span class="s5">2.9</span><span class="s2">, </span><span class="s5">1</span><span class="s2">, </span><span class="s5">0.2</span><span class="s2">]])</span>
+<span class="s2">print(</span><span class="s3">f&quot;X_new.shape: </span><span class="s4">{</span><span class="s2">X_new.shape</span><span class="s4">}</span><span class="s3">&quot;</span><span class="s2">)</span>
+<span class="s0">#%% 
+</span><span class="s2">prediction = knn.predict(X_new)</span>
+<span class="s2">print(</span><span class="s3">f&quot;Prediction: </span><span class="s4">{</span><span class="s2">prediction</span><span class="s4">}</span><span class="s3">&quot;</span><span class="s2">)</span>
+<span class="s2">print(</span><span class="s3">f&quot;Predicted target name: </span><span class="s4">{</span><span class="s2">iris_dataset[</span><span class="s3">'target_names'</span><span class="s2">][prediction]</span><span class="s4">}</span><span class="s3">&quot;</span><span class="s2">)</span>
+<span class="s0">#%% md 
+</span><span class="s2">## Evaluating the Model 
+</span><span class="s0">#%% 
+</span></pre>
+</body>
+</html>
